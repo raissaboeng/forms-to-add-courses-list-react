@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-class NewcourseForm extends Component {
+class NewCourseForm extends Component {
     static defaultProps = {
+        categories: [],
         onSubmit: () => {}
     }
     
@@ -57,11 +58,11 @@ class NewcourseForm extends Component {
                     <span>Categoria:</span>
                     <select name="category" value={state.category} onChange={this.handleChange}>
                         <option value=''>Selecionar</option>
-                        <option value="Javascript">Javascript</option>
-                        <option value="PHP">PHP</option>
-                        <option value="Ruby">Ruby</option>
-                        <option value="Python">Python</option>
-                        <option value="C#">C#</option>
+                        {
+                           props.categories.map(category => (
+                               <option value={category.name}>{category.name}</option>
+                           )) 
+                        }
                     </select>
                 </label>
 
@@ -72,4 +73,4 @@ class NewcourseForm extends Component {
     }
 }
 
-export default NewcourseForm;
+export default NewCourseForm;
