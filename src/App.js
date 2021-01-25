@@ -1,27 +1,24 @@
 import React, {Component} from 'react';
 import './App.css';
-import Course from './components/course';
+import Course from './components/Course';
+import NewcourseForm from './components/NewCourseForm';
+
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      courses: [
-        {
-          id: '1',
-          name: 'React',
-          category: 'Javascript',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png'
-        },
-        {
-          id: '2',
-          name: 'React',
-          category: 'Javascript',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png'
-        }
-      ]
+      courses: []
     }
+    this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
+  }
+
+  add(course){
+    const { courses } = this.state,
+      newCourse = Object.assign({}, course, {id: (Date.now())});
+    courses.push(newCourse);
+    this.setState({courses});
   }
 
   remove(courseId){
@@ -38,6 +35,7 @@ class App extends Component {
     const {state} = this;
      return (
       <div className="App">
+        <NewcourseForm onSubmit={this.add}/>
         <ul className="courses-list">
          {
            state.courses.map(course => <Course course={course} onRemove={this.remove}/>)
